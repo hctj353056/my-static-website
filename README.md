@@ -18,13 +18,13 @@
 ## 在线访问
 
 网站已部署到GitHub Pages，可通过以下链接访问：
-[https://hctj353056.github.io/-/](https://hctj353056.github.io/-/)
+[https://hctj353056.github.io/my-static-website/](https://hctj353056.github.io/my-static-website/)
 
 ## 本地开发
 
 1. 克隆仓库
 ```bash
-git clone https://github.com/hctj353056/-.git
+git clone https://github.com/hctj353056/my-static-website.git
 ```
 
 2. 在浏览器中打开 `index.html` 文件即可预览

@@ -17,6 +17,7 @@
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            background-attachment: fixed; /* 让背景随滚动有视差感 */
         }
 
         .container {
@@ -67,6 +68,7 @@
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 2px solid transparent;
+            position: relative;
         }
 
         .feature-card:hover {
@@ -90,6 +92,26 @@
         .feature-description {
             color: #666;
             line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* 👇 新增：统一按钮样式 */
+        .feature-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 24px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .feature-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #5a6fd8, #6a3f9c);
         }
 
         .cta-section {
@@ -148,6 +170,11 @@
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
+
+            .feature-button {
+                width: 100%;
+                padding: 12px;
+            }
         }
     </style>
 </head>
@@ -162,25 +189,33 @@
             <h2 style="text-align: center; margin-bottom: 30px; color: #333;">全部栏目</h2>
             
             <div class="features">
+                <!-- 应急连接 -->
                 <div class="feature-card">
                     <span class="feature-icon">🚀</span>
                     <h3 class="feature-title">应急连接</h3>
                     <p class="feature-description">
-                    <meta http-equiv="refresh" content="0; url=https://目标网址" />
-                    <link rel="canonical" href="https://目标网址" />
-</p>
+                        <strong>功能说明：</strong>在网络不稳定或主连接中断时，自动启用备用链路，确保服务持续可用。<br>
+                        <strong>核心价值：</strong>通过多路径冗余机制，显著提升通信可靠性，降低业务中断风险。<br>
+                        <strong>适用场景：</strong>远程办公、在线会议、金融交易、医疗远程操作等对网络稳定性要求极高的场景。<br>
+                        <strong>百度服务示例：</strong>在使用百度搜索、百度网盘、百度地图时，即使主网络出现波动，系统也会无缝切换至备用通道。
+                    </p>
+                    <a href="https://www.baidu.com" class="feature-button" target="_blank">前往百度</a>
                 </div>
-                
+
+                <!-- 程序 -->
                 <div class="feature-card">
                     <span class="feature-icon">📱</span>
                     <h3 class="feature-title">程序</h3>
                     <p class="feature-description">尚未开发</p>
+                    <a href="#" class="feature-button" onclick="alert('敬请期待！')">敬请期待</a>
                 </div>
                 
+                <!-- 艺术 -->
                 <div class="feature-card">
                     <span class="feature-icon">🎨</span>
                     <h3 class="feature-title">艺术</h3>
                     <p class="feature-description">尚不存在</p>
+                    <a href="#" class="feature-button" onclick="alert('未来可期！')">未来可期</a>
                 </div>
             </div>
 
@@ -210,25 +245,18 @@
             alert('尚未实现哦！');
         }
 
-        // 添加一些交互效果
         document.addEventListener('DOMContentLoaded', function() {
-            // 为特色卡片添加点击效果
-            const featureCards = document.querySelectorAll('.feature-card');
-            featureCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-
-            // 添加滚动效果
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const parallax = document.querySelector('body');
-                const speed = scrolled * 0.5;
-                parallax.style.backgroundPosition = `center ${speed}px`;
+            // 滚动视差效果（优化性能）
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrolled = window.pageYOffset;
+                        document.body.style.backgroundPosition = `center ${scrolled * 0.3}px`;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
             });
         });
     </script>
